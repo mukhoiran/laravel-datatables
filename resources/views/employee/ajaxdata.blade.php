@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Datatables Server Side Processing in Laravel</title>
@@ -24,20 +24,5 @@
         </thead>
     </table>
 </div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-     $('#employee_table').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": "{{ route('ajaxdata.getdata') }}",
-        "columns":[
-            { "data": "first_name" },
-            { "data": "last_name" }
-        ]
-     });
-});
-</script>
-
 </body>
 </html>
