@@ -37,24 +37,24 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Data</h4>
         </div>
+        <div class="modal-body">
+          {{ csrf_field() }}
+          <span id="form_output"></span>
+          <div class="form-group">
+            <label for="first_name">Enter First Name</label>
+            <input type="text" name="first_name" id="first_name" class="form-control" value="">
+          </div>
+          <div class="form-group">
+            <label for="last_name">Enter Last Name</label>
+            <input type="text" name="last_name" id="last_name" class="form-control" value="">
+          </div>
+          <div class="modal-footer">
+            <input type="hidden" name="button_action" id="button_action" value="insert">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            <input type="submit" name="submit" id="action" value="Save" class="btn btn-info">
+          </div>
+        </div>
       </form>
-      <div class="modal-body">
-        {{ csrf_field() }}
-        <span id="form_output"></span>
-        <div class="form-group">
-          <label for="first_name">Enter First Name</label>
-          <input type="text" name="first_name" id="first_name" class="form-control" value="">
-        </div>
-        <div class="form-group">
-          <label for="last_name">Enter Last Name</label>
-          <input type="text" name="last_name" id="last_name" class="form-control" value="">
-        </div>
-        <div class="modal-footer">
-          <input type="hidden" name="button_action" id="button_action" value="insert">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          <input type="submit" name="submit" id="action" value="Save" class="btn btn-info">
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -80,7 +80,32 @@
       $('#action').val('Save');
     })
 
-    
+    $('#employee_form').on('submit', function(event){
+      event.preventDefault();
+      var form_data = $(this).serialize();
+      $.ajax({
+        url: "{{ route('ajaxdata.postdata') }}",
+        method: "POST",
+        data: form_data,
+        dataType: "JSON",
+        success: function(data){
+          if(data.error.length > 0){
+            var error_html = '';
+            for(var count = 0; count < data.error.length; count++){
+              error_html += '<div class="alert alert-danger">'+data.error[count]+'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>';
+            }
+            $('#form_output').html(error_html);
+          }else{
+            $('#form_output').html(data.success);
+            $('#employee_form')[0].reset();
+            $('#action').val('Save');
+            $('.modal-title').text('Add Data');
+            $('#button_action').val('insert');
+            $('#employee_table').DataTable().ajax.reload();
+          }
+        }
+      })
+    })
   })
 </script>
 </body>
