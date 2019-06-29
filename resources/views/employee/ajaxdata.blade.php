@@ -50,6 +50,7 @@
             <input type="text" name="last_name" id="last_name" class="form-control" value="">
           </div>
           <div class="modal-footer">
+            <input type="hidden" name="employee_id" id="employee_id" value="">
             <input type="hidden" name="button_action" id="button_action" value="insert">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <input type="submit" name="submit" id="action" value="Save" class="btn btn-info">
@@ -105,6 +106,25 @@
             $('#button_action').val('insert');
             $('#employee_table').DataTable().ajax.reload();
           }
+        }
+      })
+    })
+
+    $(document).on('click', '.edit', function(){
+      var id = $(this).attr("id");
+      $.ajax({
+        url: "{{ route('ajaxdata.fetchdata') }}",
+        method:"GET",
+        data:{id:id},
+        dataType:"JSON",
+        success:function(data){
+          $('#first_name').val(data.first_name);
+          $('#last_name').val(data.last_name);
+          $('#employee_id').val(data.id);
+          $('#employeeModal').modal('show');
+          $('#action').val('Update');
+          $('.modal-title').text('Edit Data');
+          $('#button_action').val('Update');
         }
       })
     })

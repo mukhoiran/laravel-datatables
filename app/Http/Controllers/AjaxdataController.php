@@ -50,4 +50,14 @@ class AjaxdataController extends Controller
       );
       echo json_encode($output);
     }
+
+    function fetchdata(Request $request){
+      $id = $request->input('id');
+      $employee = Employee::find($id);
+      $output = array(
+        'first_name' => $employee->first_name,
+        'last_name' => $employee->last_name
+      );
+      echo json_encode($output);
+    }
 }
