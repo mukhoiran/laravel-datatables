@@ -16,7 +16,7 @@
     <h3 align="center">Datatables Server Side Processing in Laravel</h3>
     <br />
     <div align="right">
-      <button type="button" name="add" id="add_data" class="btn btn-success btn-sm"> Add Data</button>
+      <button type="button" name="add" id="add_data" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-plus"></i> Add Data</button>
     </div>
     <br>
     <table id="employee_table" class="table table-bordered" style="width:100%">
@@ -24,6 +24,7 @@
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Action</th>
             </tr>
         </thead>
     </table>
@@ -68,7 +69,8 @@
       "ajax": "{{ route('ajaxdata.getdata')}}",
       "columns": [
         { "data": "first_name"},
-        { "data": "last_name"}
+        { "data": "last_name"},
+        { "data": "action", orderable:false, searchable:false }
       ]
     });
 

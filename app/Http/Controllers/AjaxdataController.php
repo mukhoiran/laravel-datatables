@@ -14,8 +14,12 @@ class AjaxdataController extends Controller
     }
 
     function getdata(){
-      $employees = Employee::select('first_name','last_name');
-      return Datatables::of($employees)->make(true);
+      $employees = Employee::select('id','first_name','last_name');
+      return Datatables::of($employees)
+      ->addColumn('action', function($employee){
+        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$employee->id.'"><i class="glyphicon glyphicon-edit"> Edit</i></a>';
+      })
+      ->make(true);
     }
 
     function postdata(Request $request){
