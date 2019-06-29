@@ -17,7 +17,10 @@ class AjaxdataController extends Controller
       $employees = Employee::select('id','first_name','last_name');
       return Datatables::of($employees)
       ->addColumn('action', function($employee){
-        return '<a href="#" class="btn btn-xs btn-primary edit" id="'.$employee->id.'"><i class="glyphicon glyphicon-edit"> Edit</i></a>';
+        return '
+          <a href="#" class="btn btn-xs btn-primary edit" id="'.$employee->id.'"><i class="glyphicon glyphicon-edit"> Edit</i></a>
+          <a href="#" class="btn btn-xs btn-danger delete" id="'.$employee->id.'"><i class="glyphicon glyphicon-remove"> Delete</i></a>
+        ';
       })
       ->make(true);
     }
