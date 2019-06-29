@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::get('ajaxdata','AjaxdataController@index')->name('ajaxdata');
+Route::get('ajaxdata/getdata', 'AjaxdataController@getdata')->name('ajaxdata.getdata');

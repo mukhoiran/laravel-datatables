@@ -24,5 +24,19 @@
         </thead>
     </table>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#employee_table').DataTable({
+      "Processing": true,
+      "serverSide": true,
+      "ajax": "{{ route('ajaxdata.getdata')}}",
+      "columns": [
+        { "data": "first_name"},
+        { "data": "last_name"}
+      ]
+    });
+  })
+</script>
 </body>
 </html>
