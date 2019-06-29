@@ -52,8 +52,8 @@
           <div class="modal-footer">
             <input type="hidden" name="employee_id" id="employee_id" value="">
             <input type="hidden" name="button_action" id="button_action" value="insert">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
             <input type="submit" name="submit" id="action" value="Save" class="btn btn-info">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
       </form>
@@ -100,7 +100,9 @@
             $('#form_output').html(error_html);
           }else{
             $('#form_output').html(data.success);
-            $('#employee_form')[0].reset();
+            if($('#button_action').val() == "insert"){
+              $('#employee_form')[0].reset();
+            }
             $('#action').val('Save');
             $('.modal-title').text('Add Data');
             $('#button_action').val('insert');
@@ -118,13 +120,14 @@
         data:{id:id},
         dataType:"JSON",
         success:function(data){
+          $('#form_output').text('');
           $('#first_name').val(data.first_name);
           $('#last_name').val(data.last_name);
           $('#employee_id').val(data.id);
           $('#employeeModal').modal('show');
           $('#action').val('Update');
           $('.modal-title').text('Edit Data');
-          $('#button_action').val('Update');
+          $('#button_action').val('update');
         }
       })
     })

@@ -43,6 +43,14 @@ class AjaxdataController extends Controller
           $employee->save();
           $success_output = '<div class="alert alert-success">Data Inserted <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>';
         }
+
+        if($request->get('button_action') == "update"){
+          $employee = Employee::find($request->get('employee_id'));
+          $employee->first_name = $request->get('first_name');
+          $employee->last_name = $request->get('last_name');
+          $employee->save();
+          $success_output = '<div class="alert alert-success">Data Updated <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></div>';
+        }
       }
       $output = array(
         'error' => $error_array,
@@ -55,6 +63,7 @@ class AjaxdataController extends Controller
       $id = $request->input('id');
       $employee = Employee::find($id);
       $output = array(
+        'id' => $employee->id,
         'first_name' => $employee->first_name,
         'last_name' => $employee->last_name
       );
