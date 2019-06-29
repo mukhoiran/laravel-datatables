@@ -72,4 +72,11 @@ class AjaxdataController extends Controller
       );
       echo json_encode($output);
     }
+
+    function removedata(Request $request){
+      $employee = Employee::find($request->input('id'));
+      if($employee->delete()){
+        echo 'Data Deleted';
+      }
+    }
 }

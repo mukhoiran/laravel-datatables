@@ -131,6 +131,23 @@
         }
       })
     })
+
+    $(document).on('click', '.delete', function(){
+      var id = $(this).attr("id");
+      if(confirm("Are you sure want to Delete this data")){
+        $.ajax({
+          url:"{{ route('ajaxdata.removedata') }}",
+          method: "GET",
+          data:{id:id},
+          success:function(data){
+            alert(data);
+            $('#employee_table').DataTable().ajax.reload();
+          }
+        })
+      }else{
+        return false;
+      }
+    })
   })
 </script>
 </body>
