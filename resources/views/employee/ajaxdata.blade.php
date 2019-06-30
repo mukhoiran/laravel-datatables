@@ -150,6 +150,28 @@
         return false;
       }
     })
+
+    $(document).on('click', '#bulk_delete', function(){
+      var id = [];
+      if(confirm("Are you sure want to Delete this data")){
+        $('.employee_checkbox:checked').each(function(){
+          id.push($(this).val());
+        })
+        if(id.length > 0){
+          $.ajax({
+            url: "{{ route('ajaxdata.massremove') }}",
+            method: "GET",
+            data:{id:id},
+            success:function(data){
+              alert(data);
+              $('#employee_table').DataTable().ajax.reload();
+            }
+          })
+        }else{
+          alert("Please select atleast one checkbox");
+        }
+      }
+    })
   })
 </script>
 </body>

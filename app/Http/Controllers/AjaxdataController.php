@@ -81,4 +81,12 @@ class AjaxdataController extends Controller
         echo 'Data Deleted';
       }
     }
+
+    function massremove(Request $request){
+      $employee_id_array = $request->input('id');
+      $employee = Employee::whereIn('id', $employee_id_array);
+      if($employee->delete()){
+        echo 'Data Deleted';
+      }
+    }
 }
