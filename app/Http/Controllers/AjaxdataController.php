@@ -22,6 +22,8 @@ class AjaxdataController extends Controller
           <a href="#" class="btn btn-xs btn-danger delete" id="'.$employee->id.'"><i class="glyphicon glyphicon-remove"> Delete</i></a>
         ';
       })
+      ->addColumn('checkbox', '<input type="checkbox" name="employee_checkbox[]" class="employee_checkbox" value="{{$id}}" />')
+      ->rawColumns(['checkbox','action'])
       ->make(true);
     }
 
